@@ -68,6 +68,9 @@ The car's physical doors and hood act as interactive multi-tap triggers.
 * **5+ Taps:** Triggers Mario Mode.
 * **Hold 3 Seconds:** Deep System Standby (Forces all off).
 
+
+![Day Mode](assets/light.png)
+![Night Mode](assets/dark.png)
 ---
 
 ## ⚙️ Software Installation
