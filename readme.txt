@@ -1,5 +1,7 @@
 # 🏎️ Porsche Core: Advanced ESP32-C3 Car Controller
 
+
+
 [cite_start]An asynchronous, hardware-integrated control system for a Porsche model car, powered by a Seeed Studio XIAO ESP32-C3[cite: 1340]. This project serves as a smart-home bridge, a PC power manager, and a highly advanced cinematic lighting engine.
 
 ## ✨ Key Features
