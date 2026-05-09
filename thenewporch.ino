@@ -509,7 +509,7 @@ const char html[] PROGMEM = R"rawliteral(
         { name: "DAY", icon: "🌙 NIGHT MODE", root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--text-muted": "#64748b", "--neon-green": "#059669", "--neon-cyan": "#0284c7", "--neon-yellow": "#d97706", "--neon-red": "#dc2626", "--ring-bg": "rgba(0, 0, 0, 0.1)", "--slider-thumb": "#0f172a", "--slider-glow": "transparent", "--glow-spread": "0px", "--ring-shadow": "none" }}
       ];
       
-      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 0;
+      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 1;
       
       function applyTheme() {
         const t = themes[currentThemeIdx];
@@ -668,7 +668,7 @@ const char loginHtml[] PROGMEM = R"rawliteral(
         { root: { "--bg-color": "#0b0c10", "--card-bg": "rgba(22, 23, 29, 0.65)", "--card-border": "rgba(255, 255, 255, 0.05)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.4)", "--btn-bg": "rgba(26, 27, 35, 0.6)", "--btn-hover": "rgba(34, 35, 45, 0.8)", "--text-main": "#e2e2e5", "--text-muted": "#7a7b86", "--neon-green": "#00ffaa", "--neon-cyan": "#00ddff" }},
         { root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--text-muted": "#64748b", "--neon-green": "#059669", "--neon-cyan": "#0284c7" }}
       ];
-      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 0;
+      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 1;
       const t = themes[currentThemeIdx];
       for (let key in t.root) document.documentElement.style.setProperty(key, t.root[key]);
     </script>
@@ -726,7 +726,7 @@ const char networkHtml[] PROGMEM = R"rawliteral(
         { root: { "--bg-color": "#0b0c10", "--card-bg": "rgba(22, 23, 29, 0.65)", "--card-border": "rgba(255, 255, 255, 0.05)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.4)", "--btn-bg": "rgba(26, 27, 35, 0.6)", "--btn-hover": "rgba(34, 35, 45, 0.8)", "--text-main": "#e2e2e5", "--text-muted": "#7a7b86", "--neon-green": "#00ffaa", "--neon-cyan": "#00ddff", "--neon-yellow": "#ffcc00", "--neon-red": "#ff4444" }},
         { root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--text-muted": "#64748b", "--neon-green": "#059669", "--neon-cyan": "#0284c7", "--neon-yellow": "#d97706", "--neon-red": "#dc2626" }}
       ];
-      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 0;
+      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 1;
       const t = themes[currentThemeIdx];
       for (let key in t.root) document.documentElement.style.setProperty(key, t.root[key]);
 
