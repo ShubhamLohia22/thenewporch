@@ -635,22 +635,27 @@ const char loginHtml[] PROGMEM = R"rawliteral(
   <!DOCTYPE html>
   <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Porsche Secure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>Porsche Secure Login</title>
     <style>
-      :root { --bg-color: #0b0c10; --card-bg: rgba(22, 23, 29, 0.65); --card-border: rgba(255, 255, 255, 0.05); --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); --btn-bg: rgba(26, 27, 35, 0.6); --btn-hover: rgba(34, 35, 45, 0.8); --text-main: #e2e2e5; --neon-cyan: #00ddff; --neon-green: #00ffaa; }
+      :root { --bg-color: #0b0c10; --card-bg: rgba(22, 23, 29, 0.65); --card-border: rgba(255, 255, 255, 0.05); --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); --btn-bg: rgba(26, 27, 35, 0.6); --btn-hover: rgba(34, 35, 45, 0.8); --text-main: #e2e2e5; --text-muted: #7a7b86; --neon-cyan: #00ddff; --neon-green: #00ffaa; }
       body { background: var(--bg-color); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; transition: background 0.3s ease; }
-      .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 30px; box-shadow: var(--card-shadow); text-align: center; width: 85%; max-width: 350px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: all 0.3s ease; }
-      h2 { color: var(--text-main); font-style: italic; font-weight: 900; letter-spacing: 2px; margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
+      .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 30px 20px; box-shadow: var(--card-shadow); text-align: center; width: calc(100% - 40px); max-width: 350px; box-sizing: border-box; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: all 0.3s ease; }
+      .header-container { border-bottom: 1px solid var(--card-border); padding-bottom: 15px; margin-bottom: 25px; }
+      h2 { color: var(--text-main); font-style: italic; font-weight: 900; letter-spacing: 2px; margin: 0 0 5px 0; font-size: 20px; }
+      .subtitle { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; font-weight: 700; }
       input { width: 100%; padding: 15px; margin-bottom: 15px; background: var(--btn-bg); border: 1px solid var(--card-border); color: var(--text-main); border-radius: 12px; outline: none; box-sizing: border-box; text-align: center; font-size: 14px; font-weight: bold; letter-spacing: 1px; transition: all 0.3s ease;}
       input:focus { border-color: var(--neon-cyan); box-shadow: 0 0 12px rgba(0,221,255,0.2); }
-      .btn { width: 100%; padding: 15px; background: var(--btn-bg); border: 1px solid var(--card-border); color: var(--text-main); font-weight: 900; font-size: 12px; letter-spacing: 2px; border-radius: 12px; cursor: pointer; transition: 0.2s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+      .btn { width: 100%; padding: 15px; background: var(--btn-bg); border: 1px solid var(--card-border); color: var(--text-main); font-weight: 900; font-size: 12px; letter-spacing: 2px; border-radius: 12px; cursor: pointer; transition: 0.2s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-sizing: border-box; }
       .btn:active { transform: scale(0.95); background: var(--btn-hover); }
     </style>
   </head>
   <body>
     <div class="card">
-      <h2>SYSTEM SECURE</h2>
+      <div class="header-container">
+        <h2>PORSCHE SECURE LOGIN</h2>
+        <div class="subtitle">SYSTEM AUTHORIZATION</div>
+      </div>
       <form action="/login" method="GET">
         <input type="text" name="u" placeholder="USERNAME" required>
         <input type="password" name="p" placeholder="PASSWORD" required>
@@ -660,8 +665,8 @@ const char loginHtml[] PROGMEM = R"rawliteral(
     <script>
       // --- APPLY DAY/NIGHT THEME FROM MAIN UI MEMORY ---
       const themes = [
-        { root: { "--bg-color": "#0b0c10", "--card-bg": "rgba(22, 23, 29, 0.65)", "--card-border": "rgba(255, 255, 255, 0.05)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.4)", "--btn-bg": "rgba(26, 27, 35, 0.6)", "--btn-hover": "rgba(34, 35, 45, 0.8)", "--text-main": "#e2e2e5", "--neon-green": "#00ffaa", "--neon-cyan": "#00ddff" }},
-        { root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--neon-green": "#059669", "--neon-cyan": "#0284c7" }}
+        { root: { "--bg-color": "#0b0c10", "--card-bg": "rgba(22, 23, 29, 0.65)", "--card-border": "rgba(255, 255, 255, 0.05)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.4)", "--btn-bg": "rgba(26, 27, 35, 0.6)", "--btn-hover": "rgba(34, 35, 45, 0.8)", "--text-main": "#e2e2e5", "--text-muted": "#7a7b86", "--neon-green": "#00ffaa", "--neon-cyan": "#00ddff" }},
+        { root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--text-muted": "#64748b", "--neon-green": "#059669", "--neon-cyan": "#0284c7" }}
       ];
       let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 0;
       const t = themes[currentThemeIdx];
@@ -1433,8 +1438,14 @@ void setup() {
   ArduinoOTA.setHostname("PORSCHE_GT3_RS");
   ArduinoOTA.begin();
 
-  // 1. The Main Dashboard Route (Checks for 1-Year Cookie)
+  // 1. The Main Dashboard Route (Checks for 1-Year Cookie OR Setup Mode)
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+    // 🚨 THE VALET BACKDOOR: If 30-second reset is triggered, bypass security immediately!
+    if (inSetupMode) {
+      request->send(200, "text/html", networkHtml);
+      return;
+    }
+    
     if (request->hasHeader("Cookie") && request->header("Cookie").indexOf("session=porsche_auth") != -1) {
       request->send(200, "text/html", html); // Cookie found! Let them in instantly.
     } else {
