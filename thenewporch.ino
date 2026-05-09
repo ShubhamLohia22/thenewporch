@@ -178,17 +178,18 @@ const char html[] PROGMEM = R"rawliteral(
     <style>
       :root {
         --bg-color: #0b0c10;
-        --card-bg: linear-gradient(145deg, #16171d, #111217);
-        --card-border: rgba(255, 255, 255, 0.03);
-        --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-        --btn-bg: #1a1b23;
-        --btn-hover: #22232d;
+        --card-bg: rgba(22, 23, 29, 0.65);
+        --card-border: rgba(255, 255, 255, 0.05);
+        --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        --btn-bg: rgba(26, 27, 35, 0.6);
+        --btn-hover: rgba(34, 35, 45, 0.8);
         --text-main: #e2e2e5;
         --text-muted: #7a7b86;
         --neon-green: #00ffaa;
         --neon-cyan: #00ddff;
         --neon-yellow: #ffcc00;
         --neon-red: #ff4444;
+        --ring-bg: #252630;
       }
       
       * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -207,13 +208,13 @@ const char html[] PROGMEM = R"rawliteral(
       .header h1 { font-size: 24px; font-weight: 900; font-style: italic; letter-spacing: 1.5px; margin: 0 0 4px 0; color: #fff; }
       .header .subtitle { font-size: 10px; color: var(--text-muted); letter-spacing: 3px; }
 
-      .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 24px; box-shadow: var(--card-shadow); position: relative; overflow: hidden; }
+      .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 24px; box-shadow: var(--card-shadow); position: relative; overflow: hidden; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
       
       .status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
       .status-title { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 2px; }
       .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
       
-      .main-status-text { font-size: 28px; font-weight: 900; color: var(--neon-green); letter-spacing: 1px; text-shadow: 0 0 20px rgba(0, 255, 170, 0.4); margin-bottom: 25px; text-align: center; transition: all 0.3s ease; }
+      .main-status-text { font-size: 28px; font-weight: 900; color: var(--neon-green); letter-spacing: 1px; margin-bottom: 25px; text-align: center; transition: all 0.3s ease; }
 
       .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
       .info-item { display: flex; flex-direction: column; gap: 4px; }
@@ -222,11 +223,11 @@ const char html[] PROGMEM = R"rawliteral(
 
       .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-      .btn { background: var(--btn-bg); color: var(--text-main); border: 1px solid rgba(255,255,255,0.02); border-radius: 16px; padding: 18px 10px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+      .btn { background: var(--btn-bg); color: var(--text-main); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px 10px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
       .btn:active { transform: scale(0.96); background: var(--btn-hover); }
       .btn-full { grid-column: span 2; }
       
-      /* MATERIAL YOU FLAT BUTTONS */
+      /* FLAT BUTTONS TO SUPPORT THEMES */
       .btn-master { background: rgba(0, 221, 255, 0.1); border: 1px solid rgba(0, 221, 255, 0.4); color: var(--neon-cyan); font-size: 13px; font-weight: 900; }
       .btn-master:active { background: rgba(0, 221, 255, 0.2); }
       .btn-usb { background: rgba(255, 204, 0, 0.1); border: 1px solid rgba(255, 204, 0, 0.4); color: var(--neon-yellow); font-size: 13px; font-weight: 900; }
@@ -241,30 +242,30 @@ const char html[] PROGMEM = R"rawliteral(
       .slider-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 1px;}
       .slider-val-highlight { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 221, 255, 0.3); }
       
-      .slider { -webkit-appearance: none; width: 100%; height: 6px; background: #252630; border-radius: 10px; outline: none; }
-      .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+      .slider { -webkit-appearance: none; width: 100%; height: 6px; background: var(--ring-bg); border-radius: 10px; outline: none; }
+      .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--slider-thumb); cursor: pointer; box-shadow: 0 0 10px var(--slider-glow); transition: background 0.3s; }
 
       .sleep-controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 10px; }
       .btn-micro { padding: 12px 0; font-size: 10px; border-radius: 12px; background: rgba(255,255,255,0.02); }
 
       /* SMART RINGS CSS */
       .ring-wrapper { position: relative; width: 140px; height: 140px; margin: 0 auto 5px auto; }
-      .smart-ring { transform: rotate(-90deg); width: 100%; height: 100%; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4)); }
-      .ring-track { fill: none; stroke: #252630; stroke-width: 8; }
+      .smart-ring { transform: rotate(-90deg); width: 100%; height: 100%; filter: var(--ring-shadow); }
+      .ring-track { fill: none; stroke: var(--ring-bg); stroke-width: 8; }
       .ring-progress { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s linear, stroke-opacity 0.3s ease; }
       .ring-outer { stroke: var(--neon-red); stroke-dasharray: 251; stroke-dashoffset: 251; }
       .ring-middle { stroke: var(--neon-cyan); stroke-dasharray: 176; stroke-dashoffset: 176; }
       .ring-inner { stroke: var(--neon-yellow); stroke-dasharray: 100; stroke-dashoffset: 100; }
    
    /* MODAL STYLES */
-      .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(11, 12, 16, 0.9); backdrop-filter: blur(5px); flex-direction: column; align-items: center; justify-content: center; padding: 15px; }
-      .modal-content { background: var(--card-bg); border: 1px solid var(--neon-cyan); border-radius: 20px; width: 100%; max-width: 450px; max-height: 80vh; overflow-y: auto; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(0, 221, 255, 0.15); }
-      .modal-header { font-size: 16px; font-weight: 900; color: var(--neon-cyan); margin-bottom: 20px; text-align: center; letter-spacing: 2px; border-bottom: 1px solid rgba(0,221,255,0.2); padding-bottom: 15px; }
+      .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: var(--bg-color); flex-direction: column; align-items: center; justify-content: center; padding: 15px; transition: background 0.3s ease; }
+      .modal-content { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; width: 100%; max-width: 450px; max-height: 80vh; overflow-y: auto; padding: 25px; position: relative; box-shadow: var(--card-shadow); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+      .modal-header { font-size: 16px; font-weight: 900; color: var(--text-main); margin-bottom: 20px; text-align: center; letter-spacing: 2px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
       .close-btn { position: absolute; top: 20px; right: 20px; color: var(--neon-red); font-size: 28px; line-height: 20px; font-weight: bold; cursor: pointer; }
-      .help-item { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 12px; }
+      .help-item { border-bottom: 1px solid var(--card-border); padding-bottom: 12px; margin-bottom: 12px; }
       .help-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-      .help-title { color: var(--neon-yellow); font-size: 11px; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px; }
-      .help-desc { color: #a1a1aa; font-size: 11px; line-height: 1.5; font-weight: 500; }
+      .help-title { color: var(--text-main); font-size: 11px; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; }
+      .help-desc { color: var(--text-muted); font-size: 11px; line-height: 1.5; font-weight: 500; }
 
     </style>
   </head>
@@ -272,9 +273,12 @@ const char html[] PROGMEM = R"rawliteral(
     
     <div class="dashboard">
       <div class="header">
-        <h1>PORSCHE CORE</h1>
+        <h1 style="color: var(--text-main);">PORSCHE CORE</h1>
         <div class="subtitle">ACTIVE SYSTEM MANAGEMENT</div>
-        <button class="btn btn-micro" style="margin-top: 15px; width: 140px; margin-left: auto; margin-right: auto; border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(0, 221, 255, 0.05);" onclick="openHelp()">📖 SYSTEM MANUAL</button>
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+          <button id="themeBtn" class="btn btn-micro" style="width: 130px; border-color: var(--neon-yellow); color: var(--neon-yellow); background: rgba(255, 204, 0, 0.05);" onclick="toggleTheme()">☀️ DAY MODE</button>
+          <button class="btn btn-micro" style="width: 130px; border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(0, 221, 255, 0.05);" onclick="openHelp()">📖 SYSTEM MANUAL</button>
+        </div>
       </div>
 
       <!-- MAIN STATUS CARD -->
@@ -384,7 +388,7 @@ const char html[] PROGMEM = R"rawliteral(
         <button class="btn accent-red btn-full" style="background: rgba(255,0,0,0.1); border-color: rgba(255,0,0,0.2);" onclick="sendCmd('/off')">FORCE SHUTDOWN</button>
         
         <!-- FUTURE UPDATE: Network Settings Button -->
-        <button class="btn btn-full" style="margin-top:10px; color: #fff; box-shadow: inset 0 -3px 0 rgba(255, 255, 255, 0.3), inset 0 0 0 1px rgba(255,255,255,0.05);" onclick="window.location.href='/network'">WIFI & IP CONFIG</button>
+        <button class="btn btn-full" style="margin-top:10px;" onclick="window.location.href='/network'">WIFI & IP CONFIG</button>
       </div>
 
     </div>
@@ -393,7 +397,7 @@ const char html[] PROGMEM = R"rawliteral(
         <div class="modal-content">
           <span class="close-btn" onclick="closeHelp()">&times;</span>
           <div class="modal-header">PORSCHE CORE: SYSTEM MANUAL</div>
-          <div class="section-title" style="text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px; margin-bottom:15px;">PHYSICAL CAR HARDWARE</div>
+          <div class="section-title" style="text-align:center; border-bottom:1px solid var(--card-border); padding-bottom:10px; margin-bottom:15px;">PHYSICAL CAR HARDWARE</div>
           
           <div class="help-item">
             <div class="help-title">FRONT BONNET (HOOD)</div>
@@ -410,7 +414,7 @@ const char html[] PROGMEM = R"rawliteral(
             <div class="help-desc"><b>Single Tap:</b> Toggles Ambient Flow.<br><b>Double Tap:</b> Triggers Highway Run.<br><b>3 Taps:</b> Triggers Jukebox.<br><b>4 Taps:</b> Triggers Cinematic Car Themes.<br><b>5+ Taps:</b> Triggers Mario Mode.<br><b>Hold 3 Seconds:</b> Deep System Standby (Forces all off).</div>
           </div>
 
-          <div class="section-title" style="text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px; margin-bottom:15px; margin-top:20px;">WEB DASHBOARD CONTROLS</div>
+          <div class="section-title" style="text-align:center; border-bottom:1px solid var(--card-border); padding-bottom:10px; margin-bottom:15px; margin-top:20px;">WEB DASHBOARD CONTROLS</div>
           
           <div class="help-item">
             <div class="help-title">TELEMETRY SMART RINGS</div>
@@ -498,7 +502,30 @@ const char html[] PROGMEM = R"rawliteral(
       uiSound.volume = 0.2; 
       function openHelp() { document.getElementById('helpModal').style.display = 'flex'; }
       function closeHelp() { document.getElementById('helpModal').style.display = 'none'; }
-      const colors = { green: "#00ffaa", red: "#ff4444", yellow: "#ffcc00", muted: "#7a7b86", cyan: "#00ddff" };
+      
+      // --- DAY / NIGHT ENGINE (Professional Translucent) ---
+      const themes = [
+        { name: "NIGHT", icon: "☀️ DAY MODE", root: { "--bg-color": "#0b0c10", "--card-bg": "rgba(22, 23, 29, 0.65)", "--card-border": "rgba(255, 255, 255, 0.05)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.4)", "--btn-bg": "rgba(26, 27, 35, 0.6)", "--btn-hover": "rgba(34, 35, 45, 0.8)", "--text-main": "#e2e2e5", "--text-muted": "#7a7b86", "--neon-green": "#00ffaa", "--neon-cyan": "#00ddff", "--neon-yellow": "#ffcc00", "--neon-red": "#ff4444", "--ring-bg": "#252630", "--slider-thumb": "#ffffff", "--slider-glow": "rgba(255, 255, 255, 0.5)", "--glow-spread": "15px", "--ring-shadow": "drop-shadow(0 8px 16px rgba(0,0,0,0.4))" }},
+        { name: "DAY", icon: "🌙 NIGHT MODE", root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--text-muted": "#64748b", "--neon-green": "#059669", "--neon-cyan": "#0284c7", "--neon-yellow": "#d97706", "--neon-red": "#dc2626", "--ring-bg": "rgba(0, 0, 0, 0.1)", "--slider-thumb": "#0f172a", "--slider-glow": "transparent", "--glow-spread": "0px", "--ring-shadow": "none" }}
+      ];
+      
+      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 0;
+      
+      function applyTheme() {
+        const t = themes[currentThemeIdx];
+        for (let key in t.root) document.documentElement.style.setProperty(key, t.root[key]);
+        document.getElementById('themeBtn').innerText = t.icon;
+      }
+      
+      function toggleTheme() {
+        uiSound.currentTime = 0; uiSound.play().catch(e=>console.log(e));
+        currentThemeIdx = currentThemeIdx === 0 ? 1 : 0;
+        localStorage.setItem('porsche_theme', currentThemeIdx);
+        applyTheme();
+      }
+
+      // Link JS directly to the dynamic CSS variables so live status matches the theme!
+      const colors = { green: "var(--neon-green)", red: "var(--neon-red)", yellow: "var(--neon-yellow)", muted: "var(--text-muted)", cyan: "var(--neon-cyan)" };
       
       let gateway = `ws://${window.location.hostname}/ws`;
       let websocket;
@@ -589,11 +616,13 @@ const char html[] PROGMEM = R"rawliteral(
       }
       function sendSliderVal(val) { fetch('/setBright?v=' + val); }
       
-      function setStyle(el, color, glow) { el.style.color = color; el.style.textShadow = glow ? `0 0 15px ${color}66` : "none"; }
+      // Softened the glow radius to look natural on bright backgrounds
+      function setStyle(el, color, glow) { el.style.color = color; el.style.textShadow = "none"; }
       function syncButtonColor(btnId, color, accentClass) { const btn = document.getElementById(btnId); btn.style.color = color; btn.className = `btn ${accentClass}`; }
       
       window.onload = () => { 
-        initWebSocket(); 
+        applyTheme(); // Loads your saved theme instantly!
+        initWebSocket();
         updateSleepDisplay(document.getElementById('sleepSlider').value); 
       };
     </script>
@@ -609,13 +638,14 @@ const char loginHtml[] PROGMEM = R"rawliteral(
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Porsche Secure</title>
     <style>
-      body { background: #0b0c10; color: #e2e2e5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-      .card { background: linear-gradient(145deg, #16171d, #111217); border: 1px solid rgba(0, 221, 255, 0.2); border-radius: 24px; padding: 30px; box-shadow: 0 0 40px rgba(0, 221, 255, 0.15); text-align: center; width: 85%; max-width: 350px; }
-      h2 { color: #00ddff; font-style: italic; font-weight: 900; letter-spacing: 2px; margin-top: 0; margin-bottom: 25px; }
-      input { width: 100%; padding: 15px; margin-bottom: 15px; background: #1a1b23; border: 1px solid rgba(255,255,255,0.05); color: #fff; border-radius: 12px; outline: none; box-sizing: border-box; text-align: center; font-size: 14px; font-weight: bold; letter-spacing: 1px;}
-      input:focus { border-color: #00ddff; box-shadow: 0 0 15px rgba(0,221,255,0.2); }
-      .btn { width: 100%; padding: 15px; background: #1a2530; border: none; border-bottom: 2px solid #00ffaa; color: #00ffaa; font-weight: 900; font-size: 12px; letter-spacing: 2px; border-radius: 12px; cursor: pointer; transition: 0.2s; }
-      .btn:active { transform: scale(0.95); }
+      :root { --bg-color: #0b0c10; --card-bg: rgba(22, 23, 29, 0.65); --card-border: rgba(255, 255, 255, 0.05); --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); --btn-bg: rgba(26, 27, 35, 0.6); --btn-hover: rgba(34, 35, 45, 0.8); --text-main: #e2e2e5; --neon-cyan: #00ddff; --neon-green: #00ffaa; }
+      body { background: var(--bg-color); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; transition: background 0.3s ease; }
+      .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 30px; box-shadow: var(--card-shadow); text-align: center; width: 85%; max-width: 350px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: all 0.3s ease; }
+      h2 { color: var(--text-main); font-style: italic; font-weight: 900; letter-spacing: 2px; margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
+      input { width: 100%; padding: 15px; margin-bottom: 15px; background: var(--btn-bg); border: 1px solid var(--card-border); color: var(--text-main); border-radius: 12px; outline: none; box-sizing: border-box; text-align: center; font-size: 14px; font-weight: bold; letter-spacing: 1px; transition: all 0.3s ease;}
+      input:focus { border-color: var(--neon-cyan); box-shadow: 0 0 12px rgba(0,221,255,0.2); }
+      .btn { width: 100%; padding: 15px; background: var(--btn-bg); border: 1px solid var(--card-border); color: var(--text-main); font-weight: 900; font-size: 12px; letter-spacing: 2px; border-radius: 12px; cursor: pointer; transition: 0.2s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+      .btn:active { transform: scale(0.95); background: var(--btn-hover); }
     </style>
   </head>
   <body>
@@ -624,9 +654,19 @@ const char loginHtml[] PROGMEM = R"rawliteral(
       <form action="/login" method="GET">
         <input type="text" name="u" placeholder="USERNAME" required>
         <input type="password" name="p" placeholder="PASSWORD" required>
-        <button class="btn" type="submit">AUTHORIZE</button>
+        <button class="btn" type="submit" style="color: var(--neon-green); border-bottom: 2px solid var(--neon-green);">AUTHORIZE</button>
       </form>
     </div>
+    <script>
+      // --- APPLY DAY/NIGHT THEME FROM MAIN UI MEMORY ---
+      const themes = [
+        { root: { "--bg-color": "#0b0c10", "--card-bg": "rgba(22, 23, 29, 0.65)", "--card-border": "rgba(255, 255, 255, 0.05)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.4)", "--btn-bg": "rgba(26, 27, 35, 0.6)", "--btn-hover": "rgba(34, 35, 45, 0.8)", "--text-main": "#e2e2e5", "--neon-green": "#00ffaa", "--neon-cyan": "#00ddff" }},
+        { root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--neon-green": "#059669", "--neon-cyan": "#0284c7" }}
+      ];
+      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 0;
+      const t = themes[currentThemeIdx];
+      for (let key in t.root) document.documentElement.style.setProperty(key, t.root[key]);
+    </script>
   </body>
   </html>
 )rawliteral";
@@ -639,31 +679,30 @@ const char networkHtml[] PROGMEM = R"rawliteral(
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Porsche Setup</title>
     <style>
-      :root { --bg-color: #0b0c10; --card-bg: linear-gradient(145deg, #16171d, #111217); --neon-cyan: #00ddff; --neon-green: #00ffaa; --neon-red: #ff4444; --text-muted: #7a7b86; }
-      body { background: var(--bg-color); color: #e2e2e5; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px 15px; margin: 0; }
-      .card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.03); border-radius: 24px; padding: 25px; width: 100%; max-width: 400px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); margin-bottom: 20px; }
-      h2 { text-align: center; color: var(--neon-cyan); font-style: italic; font-weight: 900; letter-spacing: 1px; margin-top: 0; text-shadow: 0 0 15px rgba(0,221,255,0.3); border-bottom: 1px solid rgba(0,221,255,0.2); padding-bottom: 15px; }
+      :root { --bg-color: #0b0c10; --card-bg: rgba(22, 23, 29, 0.65); --card-border: rgba(255, 255, 255, 0.05); --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); --btn-bg: rgba(26, 27, 35, 0.6); --btn-hover: rgba(34, 35, 45, 0.8); --text-main: #e2e2e5; --text-muted: #7a7b86; --neon-cyan: #00ddff; --neon-green: #00ffaa; --neon-red: #ff4444; --neon-yellow: #ffcc00; }
+      body { background: var(--bg-color); color: var(--text-main); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px 15px; margin: 0; transition: background 0.3s ease; }
+      .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 25px; width: 100%; max-width: 400px; box-shadow: var(--card-shadow); margin-bottom: 20px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: all 0.3s ease; }
+      h2 { text-align: center; color: var(--neon-cyan); font-style: italic; font-weight: 900; letter-spacing: 1px; margin-top: 0; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
       label { font-size: 10px; color: var(--text-muted); font-weight: 800; letter-spacing: 1px; display: block; margin: 15px 0 5px; }
-      input { width: 100%; padding: 14px; background: #1a1b23; border: 1px solid rgba(255,255,255,0.05); color: #fff; border-radius: 12px; outline: none; font-family: monospace; font-size: 13px; box-sizing: border-box; transition: all 0.3s; }
+      input { width: 100%; padding: 14px; background: var(--btn-bg); border: 1px solid var(--card-border); color: var(--text-main); border-radius: 12px; outline: none; font-family: monospace; font-size: 13px; box-sizing: border-box; transition: all 0.3s; }
       input:focus { border-color: var(--neon-cyan); box-shadow: 0 0 12px rgba(0,221,255,0.2); }
       .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-      .btn { padding: 18px 10px; border: none; border-radius: 16px; font-weight: 800; font-size: 11px; letter-spacing: 1px; cursor: pointer; color: #fff; transition: transform 0.2s; }
-      .btn:active { transform: scale(0.95); }
-      .btn-save { background: #1a2530; border-bottom: 2px solid var(--neon-green); color: var(--neon-green); }
-      .btn-back { background: #251010; border-bottom: 2px solid var(--neon-red); color: var(--neon-red); }
+      .btn { padding: 18px 10px; border: none; border-radius: 16px; font-weight: 800; font-size: 11px; letter-spacing: 1px; cursor: pointer; color: var(--text-main); transition: transform 0.2s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+      .btn:active { transform: scale(0.95); background: var(--btn-hover); }
+      .btn-save { background: var(--btn-bg); border-bottom: 2px solid var(--neon-green); color: var(--neon-green); }
+      .btn-back { background: var(--btn-bg); border-bottom: 2px solid var(--neon-red); color: var(--neon-red); }
       .section-title { font-size: 11px; color: var(--neon-yellow); font-weight: 900; letter-spacing: 2px; margin-top: 20px; margin-bottom: -5px; }
     </style>
   </head>
   <body>
     <div class="card">
       <h2>SYSTEM CONFIG</h2>
-      
       <div class="section-title">WEB DASHBOARD SECURITY</div>
       <label>DASHBOARD USERNAME</label><input type="text" id="ui_u">
-      <label>DASHBOARD PASSWORD</label><input type="text" id="ui_p"> <div class="section-title">HOME NETWORK</div>
+      <label>DASHBOARD PASSWORD</label><input type="text" id="ui_p"> 
+      <div class="section-title">HOME NETWORK</div>
       <label>WIFI SSID</label><input type="text" id="ssid">
       <label>WIFI PASSWORD</label><input type="password" id="pass">
-      
       <div class="section-title">IP ADDRESSES</div>
       <label>ROUTER GATEWAY IP</label><input type="text" id="ip_gateway">
       <label>CAR (ESP32) IP</label><input type="text" id="ip_esp">
@@ -671,13 +710,21 @@ const char networkHtml[] PROGMEM = R"rawliteral(
       <label>DESKTOP WIFI IP</label><input type="text" id="ip_d_wifi">
       <label>LAPTOP LAN IP</label><input type="text" id="ip_l_lan">
       <label>LAPTOP WIFI IP</label><input type="text" id="ip_l_wifi">
-
       <div class="btn-grid">
         <button class="btn btn-back" onclick="window.location.href='/'">CANCEL</button>
         <button class="btn btn-save" onclick="saveNet()">SAVE & REBOOT</button>
       </div>
     </div>
     <script>
+      // --- APPLY DAY/NIGHT THEME FROM MAIN UI MEMORY ---
+      const themes = [
+        { root: { "--bg-color": "#0b0c10", "--card-bg": "rgba(22, 23, 29, 0.65)", "--card-border": "rgba(255, 255, 255, 0.05)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.4)", "--btn-bg": "rgba(26, 27, 35, 0.6)", "--btn-hover": "rgba(34, 35, 45, 0.8)", "--text-main": "#e2e2e5", "--text-muted": "#7a7b86", "--neon-green": "#00ffaa", "--neon-cyan": "#00ddff", "--neon-yellow": "#ffcc00", "--neon-red": "#ff4444" }},
+        { root: { "--bg-color": "#e2e8f0", "--card-bg": "rgba(255, 255, 255, 0.45)", "--card-border": "rgba(255, 255, 255, 0.8)", "--card-shadow": "0 8px 32px rgba(0, 0, 0, 0.08)", "--btn-bg": "rgba(255, 255, 255, 0.5)", "--btn-hover": "rgba(255, 255, 255, 0.9)", "--text-main": "#0f172a", "--text-muted": "#64748b", "--neon-green": "#059669", "--neon-cyan": "#0284c7", "--neon-yellow": "#d97706", "--neon-red": "#dc2626" }}
+      ];
+      let currentThemeIdx = localStorage.getItem('porsche_theme') ? parseInt(localStorage.getItem('porsche_theme')) : 0;
+      const t = themes[currentThemeIdx];
+      for (let key in t.root) document.documentElement.style.setProperty(key, t.root[key]);
+
       fetch('/getNetwork').then(r=>r.json()).then(d => {
         document.getElementById('ui_u').value = d.ui_user; document.getElementById('ui_p').value = d.ui_pass;
         document.getElementById('ssid').value = d.ssid; document.getElementById('pass').value = d.pass;
@@ -709,7 +756,6 @@ const char networkHtml[] PROGMEM = R"rawliteral(
   </body>
   </html>
 )rawliteral";
-
 
 // ---------------- ADVANCED HARDWARE HELPERS ----------------
 void setHead(int left, int right) {
